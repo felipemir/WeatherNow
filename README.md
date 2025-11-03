@@ -1,6 +1,6 @@
 # WeatherNow — Frontend
 
-Aplicação web construída com Next.js (App Router) para acompanhar clima atual, previsão estendida, gráficos de temperatura/umidade e gerenciamento de cidades favoritas. O projeto segue boas práticas de acessibilidade, desempenho e arquitetura limpa, pronto para deploy na Vercel.
+Projeto autoral desenvolvido por **Felipe Miranda** como vitrine de front-end moderno para a plataforma WeatherNow. A aplicação utiliza Next.js (App Router) para acompanhar clima atual, previsão estendida, gráficos de temperatura/umidade e gerenciamento de cidades favoritas. O foco está em acessibilidade, desempenho e arquitetura limpa, resultando em uma base pronta para deploy na Vercel.
 
 ## ✨ Principais funcionalidades
 - Busca de cidades com histórico local e navegação rápida.
@@ -88,6 +88,10 @@ A aplicação está pronta para deploy na [Vercel](https://vercel.com/):
 1. Configure as variáveis de ambiente no dashboard (`NEXT_PUBLIC_API_URL`, etc.).
 2. Execute `npm run build` localmente para validar.
 3. Suba o repositório e conecte na Vercel (ou use `vercel deploy`).
+
+## 👨‍💻 Autor
+- **Felipe Miranda** — Desenvolvimento completo do frontend (arquitetura, UI/UX, integração com OpenWeather, mocks e documentação).
+- LinkedIn/GitHub (adicione aqui seus links preferidos para contato).
 
 ## 🖼️ Screenshots
 Inclua capturas da Home, página da cidade e favoritos (por exemplo, pastas `public/screenshots`).
