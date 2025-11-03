@@ -1,65 +1,45 @@
-import Image from "next/image";
+import { HomeRecentSection } from "@/components/home/home-recent-section";
+import { Button } from "@/components/ui/button";
+import { STRINGS } from "@/lib/constants";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="space-y-12">
+      <section className="rounded-3xl bg-gradient-to-br from-sky-500/10 via-sky-500/5 to-transparent px-8 py-10 shadow-sm">
+        <div className="max-w-3xl space-y-6">
+          <h1 className="text-3xl font-semibold leading-tight text-slate-900 dark:text-white md:text-4xl">
+            {STRINGS.home.headline}
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-lg text-slate-600 dark:text-slate-300">
+            {STRINGS.home.description}
           </p>
+          <div className="flex flex-wrap items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+            <FeaturePill label="Informações em tempo real" />
+            <FeaturePill label="Previsão estendida de 5 dias" />
+            <FeaturePill label="Gráficos dinâmicos de temperatura e umidade" />
+            <FeaturePill label="Favoritos e histórico local" />
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Button asChild>
+              <Link href="/city/Manaus">Ver clima em Manaus</Link>
+            </Button>
+            <Button variant="outline" asChild>
+              <Link href="/favorites">{STRINGS.nav.favorites}</Link>
+            </Button>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      </section>
+
+      <HomeRecentSection />
     </div>
+  );
+}
+
+function FeaturePill({ label }: { label: string }) {
+  return (
+    <span className="rounded-full bg-white/60 px-3 py-1 text-xs font-medium uppercase tracking-wide text-slate-600 backdrop-blur dark:bg-slate-900/60 dark:text-slate-300">
+      {label}
+    </span>
   );
 }

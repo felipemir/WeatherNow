@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WeatherNow — Frontend
 
-## Getting Started
+Aplicação web construída com Next.js (App Router) para acompanhar clima atual, previsão estendida, gráficos de temperatura/umidade e gerenciamento de cidades favoritas. O projeto segue boas práticas de acessibilidade, desempenho e arquitetura limpa, pronto para deploy na Vercel.
 
-First, run the development server:
+## ✨ Principais funcionalidades
+- Busca de cidades com histórico local e navegação rápida.
+- Página detalhada com clima atual, previsão diária de 5 dias e gráfico combinado (temperatura x umidade) das próximas horas.
+- Favoritos persistidos em `localStorage`, com possibilidade de simular backend via MSW.
+- Suporte a °C/°F com preferência armazenada localmente.
+- Tema claro/escuro sensível ao `prefers-color-scheme` com toggle manual.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🛠️ Stack
+- Next.js 16 (App Router) + TypeScript + React Server Components.
+- Tailwind CSS 4 + tokens utilitários.
+- TanStack Query para data fetching e cache com hidratação SSR.
+- Zod para validar contratos das rotas `/weather/:city` e `/forecast/:city`.
+- Recharts para visualização de temperatura/umidade.
+- next-themes para gerenciamento do tema.
+- MSW 2 (opcional) para mockar a API durante o desenvolvimento.
+
+## 📁 Estrutura principal
+```
+src/
+  app/
+    page.tsx                # Home (busca + destaques)
+    city/[slug]/page.tsx    # Detalhes da cidade + gráfico + favoritos
+    favorites/page.tsx     # Lista de favoritos
+    auth/login|register     # Formulários opcionais
+  components/
+    layout/…               # Header fixo, toggle de tema
+    weather/…              # Cards climáticos, gráfico, favoritos
+    ui/…                   # Botão, Input, Card, Alert, Skeleton
+  hooks/                   # localStorage (favoritos, recentes, unidade)
+  lib/                     # API client, Zod schemas, constantes, utils
+  mocks/                   # Handlers MSW (quando BACKEND indisponível)
+  styles/globals.css
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ⚙️ Pré-requisitos
+- Node.js 18.18+ ou 20+
+- npm (ou pnpm/yarn, se preferir)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Como rodar
+1. Instale as dependências:
+   ```bash
+   npm install
+   ```
+2. Copie o arquivo de variáveis de ambiente e ajuste se necessário:
+   ```bash
+   cp .env.local.example .env.local
+   ```
+   - `NEXT_PUBLIC_API_URL`: base da API (padrão: `https://api.openweathermap.org`).
+   - `NEXT_PUBLIC_APP_NAME`: nome exibido na UI (default: WeatherNow).
+   - `NEXT_PUBLIC_OPENWEATHER_KEY`: sua chave da OpenWeather (obrigatória para dados reais).
+   - `NEXT_PUBLIC_API_MOCKING=enabled`: ative para iniciar o MSW automaticamente.
+3. Inicie o servidor de desenvolvimento:
+   ```bash
+   npm run dev
+   ```
+   Acesse [http://localhost:3000](http://localhost:3000).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Mockando a API com MSW
+Se o backend ainda não estiver disponível, o MSW intercepta as rotas definidas em `src/mocks/handlers.ts` (Manaus, São Paulo e Lisboa por padrão). Para habilitar:
+- Defina `NEXT_PUBLIC_API_MOCKING=enabled` no `.env.local`.
 
-## Learn More
+## 📦 Scripts
+- `npm run dev` — ambiente de desenvolvimento com hot reload.
+- `npm run build` — build de produção.
+- `npm run start` — executa o build gerado.
+- `npm run lint` — validação ESLint (zero warnings permitidos).
+- `npm run typecheck` — verificação de tipos com TypeScript.
+- `npm run format` — formata com Prettier.
 
-To learn more about Next.js, take a look at the following resources:
+## 🧩 Decisões de arquitetura
+- **TanStack Query + SSR**: páginas/sections recebem dados já pré-carregados quando possível (`prefetchQuery` + `HydrationBoundary`).
+- **Validação com Zod**: toda resposta da API é verificada antes de chegar à UI, evitando estados inconsistentes.
+- **Persistência local**: favoritos, buscas recentes e unidade de temperatura vivem em hooks leves que utilizam `localStorage`.
+- **Componentização**: UI reutilizável (botões, cards), weather-specific (card, gráfico, header) e layout (header fixo, tema).
+- **Acessibilidade**: semântica HTML adequada, `aria-labels`, foco visível e mensagens de erro amigáveis.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📊 Observabilidade de desempenho
+- Cache de 5–10 minutos configurado nas queries (`staleTime`).
+- Pré-carregamento de rotas Next e uso de `next/image` para ícones meteo.
+- Evitamos contextos globais complexos, privilegiando hooks locais e memoização onde necessário.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🛂 Deploy
+A aplicação está pronta para deploy na [Vercel](https://vercel.com/):
+1. Configure as variáveis de ambiente no dashboard (`NEXT_PUBLIC_API_URL`, etc.).
+2. Execute `npm run build` localmente para validar.
+3. Suba o repositório e conecte na Vercel (ou use `vercel deploy`).
 
-## Deploy on Vercel
+## 🖼️ Screenshots
+Inclua capturas da Home, página da cidade e favoritos (por exemplo, pastas `public/screenshots`).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+Feito com ☀️ por WeatherNow.
