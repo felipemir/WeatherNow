@@ -91,10 +91,6 @@ A aplicação está pronta para deploy na [Vercel](https://vercel.com/):
 
 ## 👨‍💻 Autor
 - **Felipe Miranda** — Desenvolvimento completo do frontend (arquitetura, UI/UX, integração com OpenWeather, mocks e documentação).
-- LinkedIn/GitHub (adicione aqui seus links preferidos para contato).
 
 ## 🖼️ Screenshots
 Inclua capturas da Home, página da cidade e favoritos (por exemplo, pastas `public/screenshots`).
-
----
-Feito com ☀️ por WeatherNow.
